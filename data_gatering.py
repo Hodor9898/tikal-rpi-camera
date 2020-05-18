@@ -65,8 +65,6 @@ while(True):
 
         print("\n [INFO] Found a face, sending the image now...")
 
-        upload_file("User." + str(face_id) + '.' + str(count) + ".jpg", "tikal-rpi", "entries/" + randomString(64) + ".jpg")
-
 
         time.sleep(4)
 
