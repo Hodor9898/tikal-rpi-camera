@@ -28,12 +28,17 @@ while(True):
 
         # Save the captured image into the datasets folder
         cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
+        os.system("raspistill -o User." + str(face_id) + '.' + str(count) + ".jpg")
+
+        print("\n [INFO] Found a face, sending the image now...")
 
         url = 'https://3bg8fza2lk.execute-api.us-east-1.amazonaws.com/dev/register'
-        files = {'media': open("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", 'rb')}
+        files = {'media': open("User." + str(face_id) + '.' + str(count) + ".jpg", 'rb')}
         requests.post(url, files=files)
 
         print("\n [INFO] Found a face, sending the image now...")
+
+        os.system("rm User." + str(face_id) + '.' + str(count) + ".jpg")
 
         time.sleep(4)
 
