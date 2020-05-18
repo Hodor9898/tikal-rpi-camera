@@ -23,8 +23,6 @@ while True:
         roi_gray = gray[y:y+h, x:x+w]
         roi_color = img[y:y+h, x:x+w]  
 
-    cv2.imshow('video',img)
-
     k = cv2.waitKey(30) & 0xff
     if k == 27: # press 'ESC' to quit
         break
