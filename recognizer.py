@@ -88,9 +88,11 @@ while True:
         cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
         cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)
 
-        cv2.imwrite("detection/User." + str(face_id) + '.' + str(count) + ".jpg", img)
+        imageName = "detection/User." + str(id) + '.' + randomString(10) + ".jpg"
 
-        upload_file("detection/User." + str(face_id) + '.' + str(count) + ".jpg", "tikal-rpi", "entries/" + randomString(64) + ".jpg")
+        cv2.imwrite(imageName, img)
+
+        upload_file(imageName, "tikal-rpi", "entries/" + randomString(64) + ".jpg")
 
 
     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
