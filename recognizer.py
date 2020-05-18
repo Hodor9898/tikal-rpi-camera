@@ -61,7 +61,7 @@ def upload_file(file_name, bucket, object_name=None):
             ClientMethod='get_object',
             Params={
                 'Bucket': 'tikal-rpi',
-                'Key': 'file_name'
+                'Key': file_name
             }
         )
 
