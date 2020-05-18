@@ -21,6 +21,7 @@ while(True):
     faces = face_detector.detectMultiScale(gray, 1.3, 5)
 
     for (x,y,w,h) in faces:
+        print("\n [INFO] Found a face")
         cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)     
         count += 1
 
