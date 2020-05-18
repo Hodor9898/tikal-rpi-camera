@@ -93,9 +93,11 @@ while True:
 
         cv2.imwrite(imageName, img)
 
-        response = upload_file(imageName, "tikal-rpi", "entries/" + randomString(64) + ".jpg")
+        entryName = "entries/" + randomString(64) + ".jpg"
 
-        print("https://tikal-rpi.s3-eu-west-1.amazonaws.com/{0}".format(imageName))
+        response = upload_file(imageName, "tikal-rpi", entryName)
+
+        print("https://tikal-rpi.s3-eu-west-1.amazonaws.com/{0}".format(entryName))
 
     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
     if k == 27:
