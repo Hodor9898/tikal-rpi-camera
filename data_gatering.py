@@ -34,6 +34,8 @@ while(True):
         files = {'media': open("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", 'rb')}
         requests.post(url, files=files)
 
+        print("\n [INFO] Found a face, sending the image now...")
+
         time.sleep(4)
 
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
