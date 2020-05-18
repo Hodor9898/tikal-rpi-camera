@@ -1,6 +1,7 @@
 import cv2
 import os
 import requests
+import time
 
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video width
@@ -32,6 +33,8 @@ while(True):
         url = 'http://file.api.wechat.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE'
         files = {'media': open("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", 'rb')}
         requests.post(url, files=files)
+
+        time.sleep(4)
 
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
     if k == 27:
