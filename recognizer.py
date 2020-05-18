@@ -57,7 +57,15 @@ def upload_file(file_name, bucket, object_name=None):
     try:
         response = s3_client.upload_file(file_name, bucket, object_name)
 
-        return response
+        url = s3_client.generate_presigned_url(
+            ClientMethod='get_object',
+            Params={
+                'Bucket': 'tikal-rpi',
+                'Key': 'file_name'
+            }
+        )
+
+        return url
     except ClientError as e:
         logging.error(e)
         return False
@@ -96,7 +104,7 @@ while True:
 
         response = upload_file(imageName, "tikal-rpi", "entries/" + randomString(64) + ".jpg")
 
-        print("response: {0}".format(response))
+        print(response
 
 
     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
