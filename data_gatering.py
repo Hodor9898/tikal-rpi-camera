@@ -23,32 +23,7 @@ print("\n [INFO] Initializing face capture. Look the camera and wait ...")
 # Initialize individual sampling face count
 count = 0
 
-def randomString(stringLength=8):
-     letters = string.ascii_lowercase
-     return ''.join(random.choice(letters) for i in range(stringLength))
 
-def upload_file(file_name, bucket, object_name=None):
-    """Upload a file to an S3 bucket
-
-    :param file_name: File to upload
-    :param bucket: Bucket to upload to
-    :param object_name: S3 object name. If not specified then file_name is used
-    :return: True if file was uploaded, else False
-    """
-
-    # If S3 object_name was not specified, use file_name
-    if object_name is None:
-        object_name = file_name
-
-    # Upload the file
-    s3_client = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
-
-    try:
-        response = s3_client.upload_file(file_name, bucket, object_name)
-    except ClientError as e:
-        logging.error(e)
-        return False
-    return True
 
 while(True):
     ret, img = cam.read()
@@ -62,12 +37,6 @@ while(True):
 
         # Save the captured image into the datasets folder
         cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", img)
-
-        print("\n [INFO] Found a face, sending the image now...")
-
-        upload_file("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", "tikal-rpi", "entries/" + randomString(64) + ".jpg")
-
-        time.sleep(4)
 
     k = cv2.waitKey(100) & 0xff # Press 'ESC' for exiting video
     if k == 27:
