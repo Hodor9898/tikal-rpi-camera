@@ -61,16 +61,12 @@ while(True):
         count += 1
 
         # Save the captured image into the datasets folder
-        cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
-        os.system("raspistill -o User." + str(face_id) + '.' + str(count) + ".jpg")
+        cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg")
 
         print("\n [INFO] Found a face, sending the image now...")
 
         upload_file("User." + str(face_id) + '.' + str(count) + ".jpg", "tikal-rpi", "entries/" + randomString(64) + ".jpg")
 
-        print("\n [INFO] Found a face, sending the image now...")
-
-        os.system("rm User." + str(face_id) + '.' + str(count) + ".jpg")
 
         time.sleep(4)
 
