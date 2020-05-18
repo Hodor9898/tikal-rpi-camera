@@ -61,7 +61,7 @@ while(True):
         count += 1
 
         # Save the captured image into the datasets folder
-        cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg")
+        cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", img)
 
         print("\n [INFO] Found a face, sending the image now...")
 
