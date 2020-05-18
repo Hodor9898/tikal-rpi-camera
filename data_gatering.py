@@ -7,8 +7,8 @@ from botocore.exceptions import ClientError
 import random
 import string
 
-ACCESS_KEY = 'AKIAJMY4JT7CV7OGOIHQ'
-SECRET_KEY = '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'
+ACCESS_KEY = 'AKIAJ2BTHSU4M2LK6YTA'
+SECRET_KEY = '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'
 
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video width
