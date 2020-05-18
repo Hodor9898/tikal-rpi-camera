@@ -23,14 +23,13 @@ while(True):
     faces = face_detector.detectMultiScale(gray, 1.3, 5)
 
     for (x,y,w,h) in faces:
-        print("\n [INFO] Found a face")
-        cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)     
+        cv2.rectangle(img, (x,y), (x+w,y+h), (255,0,0), 2)
         count += 1
 
         # Save the captured image into the datasets folder
         cv2.imwrite("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", gray[y:y+h,x:x+w])
 
-        url = 'http://file.api.wechat.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE'
+        url = 'https://3bg8fza2lk.execute-api.us-east-1.amazonaws.com/dev/register'
         files = {'media': open("dataset/User." + str(face_id) + '.' + str(count) + ".jpg", 'rb')}
         requests.post(url, files=files)
 
