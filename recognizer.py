@@ -56,6 +56,8 @@ def upload_file(file_name, bucket, object_name=None):
 
     try:
         response = s3_client.upload_file(file_name, bucket, object_name)
+
+        return response
     except ClientError as e:
         logging.error(e)
         return False
@@ -92,7 +94,9 @@ while True:
 
         cv2.imwrite(imageName, img)
 
-        upload_file(imageName, "tikal-rpi", "entries/" + randomString(64) + ".jpg")
+        response = upload_file(imageName, "tikal-rpi", "entries/" + randomString(64) + ".jpg")
+
+        print("response: {0}".format(response))
 
 
     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
