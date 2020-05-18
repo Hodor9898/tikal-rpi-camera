@@ -7,6 +7,9 @@ from botocore.exceptions import ClientError
 import random
 import string
 
+ACCESS_KEY = 'AKIAJMY4JT7CV7OGOIHQ'
+SECRET_KEY = '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'
+
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video width
 cam.set(4, 480) # set video height
@@ -68,7 +71,8 @@ def upload_file(file_name, bucket, object_name=None):
         object_name = file_name
 
     # Upload the file
-    s3_client = boto3.client('s3')
+    s3_client = boto3.client('s3', aws_access_key_id=ACCESS_KEY, aws_secret_access_key=SECRET_KEY)
+
     try:
         response = s3_client.upload_file(file_name, bucket, object_name)
     except ClientError as e:
