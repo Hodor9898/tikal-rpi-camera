@@ -104,8 +104,7 @@ while True:
 
         response = upload_file(imageName, "tikal-rpi", "entries/" + randomString(64) + ".jpg")
 
-        print(response
-
+        print(response)
 
     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
     if k == 27:
