@@ -2,6 +2,10 @@ import cv2
 import os
 import requests
 import time
+import boto3
+from botocore.exceptions import ClientError
+import random
+import string
 
 cam = cv2.VideoCapture(0)
 cam.set(3, 640) # set video width
@@ -32,9 +36,7 @@ while(True):
 
         print("\n [INFO] Found a face, sending the image now...")
 
-        url = 'https://3bg8fza2lk.execute-api.us-east-1.amazonaws.com/dev/register'
-        files = {'media': open("User." + str(face_id) + '.' + str(count) + ".jpg", 'rb')}
-        requests.post(url, files=files)
+        upload_file("User." + str(face_id) + '.' + str(count) + ".jpg", "tikal-rpi", "entries/" + randomString(64) + ".jpg")
 
         print("\n [INFO] Found a face, sending the image now...")
 
@@ -47,6 +49,32 @@ while(True):
         break
     elif count >= 30: # Take 30 face sample and stop video
          break
+
+def randomString(stringLength=8):
+     letters = string.ascii_lowercase
+     return ''.join(random.choice(letters) for i in range(stringLength))
+
+def upload_file(file_name, bucket, object_name=None):
+    """Upload a file to an S3 bucket
+
+    :param file_name: File to upload
+    :param bucket: Bucket to upload to
+    :param object_name: S3 object name. If not specified then file_name is used
+    :return: True if file was uploaded, else False
+    """
+
+    # If S3 object_name was not specified, use file_name
+    if object_name is None:
+        object_name = file_name
+
+    # Upload the file
+    s3_client = boto3.client('s3')
+    try:
+        response = s3_client.upload_file(file_name, bucket, object_name)
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
 
 # Do a bit of cleanup
 print("\n [INFO] Exiting Program and cleanup stuff")
