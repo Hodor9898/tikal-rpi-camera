@@ -103,7 +103,7 @@ while True:
 
             response = upload_file(imageName, "tikal-rpi", entryName)
 
-            d = {'user_id': id, 'name': 3, image_key: entryName}
+            d = {'user_id': id, 'name': 3, 'image_key': entryName}
 
             requests.post("https://36o0y7kjle.execute-api.us-east-1.amazonaws.com/dev/register", data=d)
 
