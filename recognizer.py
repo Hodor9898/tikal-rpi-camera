@@ -9,8 +9,8 @@ import random
 import string
 import requests
 
-ACCESS_KEY = 'AKIAI5MIUR3A3SS3A7TQ'
-SECRET_KEY = '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'
+ACCESS_KEY = '<ACCESS_KEY>'
+SECRET_KEY = '<SECRET_KEY>'
 
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -78,10 +78,6 @@ while True:
     for(x,y,w,h) in faces:
         cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
         id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
-
-
-
-
 
         # Check if confidence is less them 100 ==> "0" is perfect match 
         if (confidence < 70):
