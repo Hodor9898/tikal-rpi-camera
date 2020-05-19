@@ -7,9 +7,10 @@ import boto3
 from botocore.exceptions import ClientError
 import random
 import string
+import requests
 
-ACCESS_KEY = 'AKIAJ2BTHSU4M2LK6YTA'
-SECRET_KEY = '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'
+ACCESS_KEY = 'AKIAI5MIUR3A3SS3A7TQ'
+SECRET_KEY = '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'
 
 
 recognizer = cv2.face.LBPHFaceRecognizer_create()
@@ -78,26 +79,35 @@ while True:
         cv2.rectangle(img, (x,y), (x+w,y+h), (0,255,0), 2)
         id, confidence = recognizer.predict(gray[y:y+h,x:x+w])
 
+
+
+
+
         # Check if confidence is less them 100 ==> "0" is perfect match 
-        if (confidence < 100):
+        if (confidence < 70):
             id = names[id]
             confidence = "  {0}%".format(round(100 - confidence))
         else:
             id = "unknown"
             confidence = "  {0}%".format(round(100 - confidence))
-        
+
         cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
         cv2.putText(img, str(confidence), (x+5,y+h-5), font, 1, (255,255,0), 1)
 
-        imageName = "detection/User." + str(id) + '.' + randomString(10) + ".jpg"
+        if (confidence < 70):
+            imageName = "detection/User." + str(id) + '.' + randomString(10) + ".jpg"
 
-        cv2.imwrite(imageName, img)
+            cv2.imwrite(imageName, img)
 
-        entryName = "entries/" + randomString(64) + ".jpg"
+            entryName = "entries/" + randomString(64) + ".jpg"
 
-        response = upload_file(imageName, "tikal-rpi", entryName)
+            response = upload_file(imageName, "tikal-rpi", entryName)
 
-        print("https://tikal-rpi.s3-eu-west-1.amazonaws.com/{0}".format(entryName))
+            d = {'user_id': id, 'name': 3, image_key: entryName}
+
+            requests.post("https://36o0y7kjle.execute-api.us-east-1.amazonaws.com/dev/register", data=d)
+
+            print("https://tikal-rpi.s3-eu-west-1.amazonaws.com/{0}".format(entryName))
 
     k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
     if k == 27:
