@@ -85,13 +85,13 @@ while True:
 
         # Check if confidence is less them 100 ==> "0" is perfect match 
         if (confidence < 70):
-            id = names[id]
+            name = names[id]
             confidencePct = "  {0}%".format(round(100 - confidence))
         else:
-            id = "unknown"
+            name = "unknown"
             confidencePct = "  {0}%".format(round(100 - confidence))
 
-        cv2.putText(img, str(id), (x+5,y-5), font, 1, (255,255,255), 2)
+        cv2.putText(img, str(name), (x+5,y-5), font, 1, (255,255,255), 2)
         cv2.putText(img, str(confidencePct), (x+5,y+h-5), font, 1, (255,255,0), 1)
 
         if (confidence < 70):
@@ -103,7 +103,7 @@ while True:
 
             response = upload_file(imageName, "tikal-rpi", entryName)
 
-            d = {'user_id': id, 'name': 3, 'image_key': entryName}
+            d = {'user_id': id, 'name': name, 'image_key': entryName}
 
             requests.post("https://36o0y7kjle.execute-api.us-east-1.amazonaws.com/dev/register", data=d)
 
